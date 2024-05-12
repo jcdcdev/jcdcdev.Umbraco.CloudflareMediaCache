@@ -10,7 +10,7 @@
         <Product>jcdcdev.Umbraco.CloudflareMediaCache</Product>
         <PackageId>jcdcdev.Umbraco.CloudflareMediaCache</PackageId>
         <Title>Umbraco Cloudflare Media Cache</Title>
-        <Description>Automatically purge Cloudflare cache when saving media. Adds cache headers when serving media.</Description>
+        <Description>Adds ETags and automatically purges Cloudflare cache when media is updated in Umbraco. Full image cropper support.</Description>
         <PackageTags>umbraco;umbraco-marketplace</PackageTags>
         <Authors>James Carter</Authors>
         <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © James Carter</Copyright>
@@ -54,8 +54,7 @@
         <Version>$(PackageVersion)</Version>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
-
-
+    
     <ItemGroup>
         <None Include="..\..\docs\icon.png" Pack="true" PackagePath="images\icon.png"/>
         <None Include="..\..\.github\README.md" Pack="true" PackagePath="\"/>
