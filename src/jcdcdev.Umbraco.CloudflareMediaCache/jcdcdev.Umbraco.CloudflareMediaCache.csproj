@@ -14,8 +14,8 @@
         <PackageTags>umbraco;umbraco-marketplace</PackageTags>
         <Authors>jcdcdev</Authors>
         <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © James Carter</Copyright>
-        <PackageProjectUrl>https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache</PackageProjectUrl>
-        <RepositoryUrl>https://jcdc.dev/umbraco-packages/cloudflare-media-cache</RepositoryUrl>
+        <PackageProjectUrl>https://jcdc.dev/umbraco-packages/cloudflare-media-cache</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache</RepositoryUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryType>git</RepositoryType>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
