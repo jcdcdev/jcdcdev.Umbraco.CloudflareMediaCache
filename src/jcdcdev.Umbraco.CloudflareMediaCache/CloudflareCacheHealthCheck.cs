@@ -1,5 +1,4 @@
 using jcdcdev.Umbraco.CloudflareMediaCache.Api;
-using jcdcdev.Umbraco.CloudflareMediaCache.Api.Models;
 using jcdcdev.Umbraco.CloudflareMediaCache.Models;
 using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.HealthChecks;
@@ -12,8 +11,8 @@ public class CloudflareCacheHealthCheck : HealthCheck
 {
     private const string HealthCheckId = "3f0bbea9-d82e-4805-b9c0-aae4c8bf96eb";
     private const string HealthCheckName = "Cloudflare Cache Health Check";
-    private readonly CloudflareCacheOptions _options;
     private readonly ICloudflareCacheApiClient _client;
+    private readonly CloudflareCacheOptions _options;
 
     public CloudflareCacheHealthCheck(IOptions<CloudflareCacheOptions> options, ICloudflareCacheApiClient client)
     {

@@ -14,13 +14,14 @@ namespace jcdcdev.Umbraco.CloudflareMediaCache;
 
 public class MediaSavedNotificationHandler : INotificationAsyncHandler<MediaSavedNotification>
 {
+    private readonly ICloudflareCacheApiClient _cloudflareCacheApiClient;
     private readonly ILogger _logger;
     private readonly CloudflareCacheOptions _options;
-    private readonly IUmbracoContextFactory _umbracoContextFactory;
     private readonly IPublishedUrlProvider _publishedUrlProvider;
-    private readonly ICloudflareCacheApiClient _cloudflareCacheApiClient;
+    private readonly IUmbracoContextFactory _umbracoContextFactory;
 
-    public MediaSavedNotificationHandler(IOptions<CloudflareCacheOptions> options,
+    public MediaSavedNotificationHandler(
+        IOptions<CloudflareCacheOptions> options,
         IUmbracoContextFactory umbracoContextFactory,
         IPublishedUrlProvider publishedUrlProvider,
         ICloudflareCacheApiClient cloudflareCacheApiClient,

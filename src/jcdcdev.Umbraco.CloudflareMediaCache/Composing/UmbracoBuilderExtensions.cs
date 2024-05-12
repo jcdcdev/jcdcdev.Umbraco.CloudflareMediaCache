@@ -40,10 +40,7 @@ public static class UmbracoBuilderExtensions
 
         builder.AddNotificationAsyncHandler<MediaSavedNotification, MediaSavedNotificationHandler>();
 
-        builder.Services.Configure<ImageSharpMiddlewareOptions>(options =>
-        {
-            options.OnPrepareResponseAsync = OnPrepareResponseAsync;
-        });
+        builder.Services.Configure<ImageSharpMiddlewareOptions>(options => { options.OnPrepareResponseAsync = OnPrepareResponseAsync; });
     }
 
     private static Task OnPrepareResponseAsync(HttpContext context)

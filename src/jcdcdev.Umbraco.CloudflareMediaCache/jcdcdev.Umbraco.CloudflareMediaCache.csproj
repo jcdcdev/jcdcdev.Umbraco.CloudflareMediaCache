@@ -12,10 +12,10 @@
         <Title>Umbraco Cloudflare Media Cache</Title>
         <Description>Adds ETags and automatically purges Cloudflare cache when media is updated in Umbraco. Full image cropper support.</Description>
         <PackageTags>umbraco;umbraco-marketplace</PackageTags>
-        <Authors>James Carter</Authors>
+        <Authors>jcdcdev</Authors>
         <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © James Carter</Copyright>
         <PackageProjectUrl>https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache</RepositoryUrl>
+        <RepositoryUrl>https://jcdc.dev/umbraco-packages/cloudflare-media-cache</RepositoryUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryType>git</RepositoryType>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -50,11 +50,13 @@
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-        <PackageVersion>$([System.DateTime]::UtcNow.ToString(`yyyy`).TrimStart(`0`)).$([System.DateTime]::UtcNow.ToString(`MM`).TrimStart(`0`))$([System.DateTime]::UtcNow.ToString(`dd`).TrimStart(`0`)).$([System.DateTime]::UtcNow.ToString(`Hmm`).TrimStart(`0`))-alpha$([System.DateTime]::UtcNow.ToString(`ss`).TrimStart(`.`))</PackageVersion>
+        <PackageVersion>
+            $([System.DateTime]::UtcNow.ToString(`yyyy`).TrimStart(`0`)).$([System.DateTime]::UtcNow.ToString(`MM`).TrimStart(`0`))$([System.DateTime]::UtcNow.ToString(`dd`).TrimStart(`0`)).$([System.DateTime]::UtcNow.ToString(`Hmm`).TrimStart(`0`))-alpha$([System.DateTime]::UtcNow.ToString(`ss`).TrimStart(`.`))
+        </PackageVersion>
         <Version>$(PackageVersion)</Version>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <None Include="..\..\docs\icon.png" Pack="true" PackagePath="images\icon.png"/>
         <None Include="..\..\.github\README.md" Pack="true" PackagePath="\"/>

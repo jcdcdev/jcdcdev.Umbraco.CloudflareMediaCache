@@ -10,6 +10,8 @@ namespace jcdcdev.Umbraco.CloudflareMediaCache.Api;
 
 public class CloudflareCacheApiClient : ICloudflareCacheApiClient
 {
+    private readonly HttpClient _httpClient;
+
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -17,7 +19,6 @@ public class CloudflareCacheApiClient : ICloudflareCacheApiClient
 
     private readonly ILogger _logger;
     private readonly CloudflareCacheOptions _options;
-    private readonly HttpClient _httpClient;
 
     public CloudflareCacheApiClient(HttpClient httpClient, IOptions<CloudflareCacheOptions> options, ILogger<CloudflareCacheApiClient> logger)
     {
