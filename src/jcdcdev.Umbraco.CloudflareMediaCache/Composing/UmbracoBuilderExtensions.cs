@@ -25,7 +25,7 @@ public static class UmbracoBuilderExtensions
         builder.Services.AddHttpClient<ICloudflareCacheApiClient, CloudflareCacheApiClient>((services, client) =>
         {
             var options = services.GetRequiredService<IOptions<CloudflareCacheOptions>>().Value;
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + options.Key);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + options.ApiToken);
             client.BaseAddress = options.BaseUrl;
         });
 
@@ -87,8 +87,10 @@ public static class UmbracoBuilderExtensions
 
     private static string CreateKey(HttpContext context, IMedia media)
     {
-        var src =
-            $"{media.UpdateDate.Ticks}{context.Request.Path}{context.Request.Query.OrderBy(x => x.Key).Select(x => $"{x.Key}{x.Value}")}";
+        var date = media.UpdateDate.Ticks;
+        var path = context.Request.Path;
+        var query = context.Request.Query.OrderBy(x => x.Key).Select(x => $"{x.Key}{x.Value}");
+        var src = $"{date}{path}{query}";
         var key = BitConverter
             .ToString(MD5.HashData(Encoding.UTF8.GetBytes(src)))
             .Replace("-", "");
