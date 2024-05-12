@@ -41,7 +41,7 @@ Add the following section to your `appsettings.json`:
     "Media": {
       "Cache": {
         "ZoneId": "ZONE_ID",
-        "ApiToken": "API_TOKEN",,
+        "ApiToken": "API_TOKEN",
         "Enabled": true,
         "Mode": "All",
         "MaxAge": 2592000
