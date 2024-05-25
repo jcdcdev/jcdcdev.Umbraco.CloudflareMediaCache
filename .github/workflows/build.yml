@@ -16,4 +16,4 @@ jobs:
               with:
                   project-name: ${{ needs.metadata.outputs.project-name}}
                   project-path: ${{ needs.metadata.outputs.project-path }}
-                  umbraco-version: 10
+                  umbraco-version: 14
