@@ -11,9 +11,9 @@ jobs:
         needs:
             - metadata
         steps:
-            - name: Build
-              uses: jcdcdev/jcdcdev.Umbraco.Github.Build@main
-              with:
-                  project-name: ${{ needs.metadata.outputs.project-name}}
-                  project-path: ${{ needs.metadata.outputs.project-path }}
-                  umbraco-version: 10
+            -   name: Build
+                uses: jcdcdev/jcdcdev.Umbraco.Github.Build@main
+                with:
+                    project-name: ${{ needs.metadata.outputs.project-name}}
+                    project-path: ${{ needs.metadata.outputs.project-path }}
+                    umbraco-version: 10
