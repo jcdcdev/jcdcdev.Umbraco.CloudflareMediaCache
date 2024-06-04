@@ -5,8 +5,7 @@ using Umbraco.Cms.Core.HealthChecks;
 
 namespace jcdcdev.Umbraco.CloudflareMediaCache;
 
-[HealthCheck(HealthCheckId, HealthCheckName, Description = "Checks the Cloudflare API to ensure it is available.",
-    Group = "Cloudflare")]
+[HealthCheck(HealthCheckId, HealthCheckName, Description = "Checks the Cloudflare API to ensure it is available.", Group = "Cloudflare")]
 public class CloudflareCacheHealthCheck : HealthCheck
 {
     private const string HealthCheckId = "3f0bbea9-d82e-4805-b9c0-aae4c8bf96eb";
