@@ -4,6 +4,7 @@ using jcdcdev.Umbraco.CloudflareMediaCache.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.Events;
+using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.Routing;
@@ -12,27 +13,16 @@ using Umbraco.Extensions;
 
 namespace jcdcdev.Umbraco.CloudflareMediaCache;
 
-public class MediaSavedNotificationHandler : INotificationAsyncHandler<MediaSavedNotification>
+public class MediaSavedNotificationHandler(
+    IOptions<CloudflareCacheOptions> options,
+    IUmbracoContextFactory umbracoContextFactory,
+    IPublishedUrlProvider publishedUrlProvider,
+    ICloudflareCacheApiClient cloudflareCacheApiClient,
+    ILogger<MediaSavedNotificationHandler> logger)
+    : INotificationAsyncHandler<MediaSavedNotification>
 {
-    private readonly ICloudflareCacheApiClient _cloudflareCacheApiClient;
-    private readonly ILogger _logger;
-    private readonly CloudflareCacheOptions _options;
-    private readonly IPublishedUrlProvider _publishedUrlProvider;
-    private readonly IUmbracoContextFactory _umbracoContextFactory;
-
-    public MediaSavedNotificationHandler(
-        IOptions<CloudflareCacheOptions> options,
-        IUmbracoContextFactory umbracoContextFactory,
-        IPublishedUrlProvider publishedUrlProvider,
-        ICloudflareCacheApiClient cloudflareCacheApiClient,
-        ILogger<MediaSavedNotificationHandler> logger)
-    {
-        _umbracoContextFactory = umbracoContextFactory;
-        _publishedUrlProvider = publishedUrlProvider;
-        _cloudflareCacheApiClient = cloudflareCacheApiClient;
-        _logger = logger;
-        _options = options.Value;
-    }
+    private readonly ILogger _logger = logger;
+    private readonly CloudflareCacheOptions _options = options.Value;
 
     public async Task HandleAsync(MediaSavedNotification notification, CancellationToken cancellationToken)
     {
@@ -42,23 +32,29 @@ public class MediaSavedNotificationHandler : INotificationAsyncHandler<MediaSave
             return;
         }
 
-        if (_options.Mode == PurgeCacheMode.All)
+        switch (_options.Mode)
         {
-            _logger.LogInformation("Purging all Cloudflare cache");
-            var result = await _cloudflareCacheApiClient.SendPurgeAllRequest();
-            if (!result)
+            case PurgeCacheMode.All:
             {
-                _logger.LogError("Failed to purge Cloudflare cache");
+                await PurgeAll();
+                return;
             }
-            else
+            case PurgeCacheMode.Prefix:
             {
-                _logger.LogInformation("Successfully purged Cloudflare cache");
+                await PurgeByPrefix(notification.SavedEntities);
+                return;
             }
-
-            return;
+            case PurgeCacheMode.Unknown:
+                _logger.LogError("Cloudflare cache mode is unknown");
+                return;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
+    }
 
-        using var ctx = _umbracoContextFactory.EnsureUmbracoContext();
+    private async Task PurgeByPrefix(IEnumerable<IMedia> savedMedia)
+    {
+        using var ctx = umbracoContextFactory.EnsureUmbracoContext();
         var mediaCache = ctx.UmbracoContext.Media;
         if (mediaCache == null)
         {
@@ -67,7 +63,7 @@ public class MediaSavedNotificationHandler : INotificationAsyncHandler<MediaSave
         }
 
         var publishedMedia = new List<IPublishedContent>();
-        foreach (var saved in notification.SavedEntities)
+        foreach (var saved in savedMedia)
         {
             var media = mediaCache.GetById(saved.Id);
             if (media == null)
@@ -79,14 +75,23 @@ public class MediaSavedNotificationHandler : INotificationAsyncHandler<MediaSave
             publishedMedia.Add(media);
         }
 
-        var request = _options.Mode switch
-        {
-            PurgeCacheMode.Prefix => PreparePurgeByPrefixRequest(publishedMedia),
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
+        var request = PreparePurgeByPrefixRequest(publishedMedia);
         _logger.LogInformation("Purging Cloudflare cache {Mode}", _options.Mode);
-        await _cloudflareCacheApiClient.SendPurgeRequest(request);
+        await cloudflareCacheApiClient.SendPurgeRequest(request);
+    }
+
+    private async Task PurgeAll()
+    {
+        _logger.LogInformation("Purging all Cloudflare cache");
+        var result = await cloudflareCacheApiClient.SendPurgeAllRequest();
+        if (!result)
+        {
+            _logger.LogError("Failed to purge Cloudflare cache");
+        }
+        else
+        {
+            _logger.LogInformation("Successfully purged Cloudflare cache");
+        }
     }
 
     private PurgeCacheRequest PreparePurgeByPrefixRequest(List<IPublishedContent> publishedMedia)
@@ -100,7 +105,7 @@ public class MediaSavedNotificationHandler : INotificationAsyncHandler<MediaSave
         {
             foreach (var mediaCulture in media.Cultures)
             {
-                var url = media.MediaUrl(_publishedUrlProvider, mediaCulture.Key, UrlMode.Absolute);
+                var url = media.MediaUrl(publishedUrlProvider, mediaCulture.Key, UrlMode.Absolute);
                 var uri = new UriBuilder(url);
                 uri.Path = string.Join("/", uri.Path.Split("/").SkipLast());
                 request.Prefixes.Add(uri.ToString());

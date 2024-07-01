@@ -8,24 +8,16 @@ using Umbraco.Cms.Core;
 
 namespace jcdcdev.Umbraco.CloudflareMediaCache.Api;
 
-public class CloudflareCacheApiClient : ICloudflareCacheApiClient
+public class CloudflareCacheApiClient(HttpClient httpClient, IOptions<CloudflareCacheOptions> options, ILogger<CloudflareCacheApiClient> logger)
+    : ICloudflareCacheApiClient
 {
-    private readonly HttpClient _httpClient;
-
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    private readonly ILogger _logger;
-    private readonly CloudflareCacheOptions _options;
-
-    public CloudflareCacheApiClient(HttpClient httpClient, IOptions<CloudflareCacheOptions> options, ILogger<CloudflareCacheApiClient> logger)
-    {
-        _httpClient = httpClient;
-        _logger = logger;
-        _options = options.Value;
-    }
+    private readonly ILogger _logger = logger;
+    private readonly CloudflareCacheOptions _options = options.Value;
 
     public async Task<bool> SendPurgeRequest(PurgeCacheRequest request) => await PurgeInternal(request);
 
@@ -38,7 +30,7 @@ public class CloudflareCacheApiClient : ICloudflareCacheApiClient
     {
         try
         {
-            var response = await _httpClient.GetFromJsonAsync<ZoneResponse>($"zones/{_options.ZoneId}");
+            var response = await httpClient.GetFromJsonAsync<ZoneResponse>($"zones/{_options.ZoneId}");
 
             return Attempt.If(response?.Success ?? false, response);
         }
@@ -53,7 +45,7 @@ public class CloudflareCacheApiClient : ICloudflareCacheApiClient
     {
         var url = $"zones/{_options.ZoneId}/purge_cache";
         _logger.LogDebug("Purging Cloudflare cache {Url}", url);
-        var response = await _httpClient.PostAsJsonAsync(url, request, _jsonSerializerOptions);
+        var response = await httpClient.PostAsJsonAsync(url, request, _jsonSerializerOptions);
         if (!response.IsSuccessStatusCode)
         {
             _logger.LogError("Failed to purge Cloudflare cache {StatusCode}", response.StatusCode);
