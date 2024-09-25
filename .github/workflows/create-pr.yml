@@ -1,4 +1,5 @@
 name: 🔃 Create PRs
+# TODO: Return early if there are no changes between the source and target branches once implemented - https://github.com/orgs/community/discussions/82744
 on:
   workflow_dispatch:
     inputs:
@@ -70,22 +71,36 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ env.SOURCE }}
-      - name: Determine Version
-        id: determine-version
+      - name: Check for changes
+        id: check-for-changes
         run: |
+          DIFF=$(git diff --name-only ${{ env.TARGET }} ${{ env.SOURCE }} | wc -l)
+          if [ $DIFF -eq 0 ]; then
+            echo "No changes between ${{ env.TARGET }} and ${{ env.SOURCE }}"
+            echo "SHOULD_RUN=false" >> $GITHUB_ENV
+            exit 
+          fi
+            
+          echo "Changes between ${{ env.TARGET }} and ${{ env.SOURCE }}"
+          
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           
           git checkout ${{ env.TARGET }}
           git merge $SOURCE --no-ff --no-edit
+
+          echo "SHOULD_RUN=true" >> $GITHUB_ENV
       - name: Download GitVersion.yml
+        if: ${{ env.SHOULD_RUN == 'true' }}
         shell: bash
         run: curl -sSL https://raw.githubusercontent.com/jcdcdev/jcdcdev.Umbraco.GitHub.Build/main/GitVersion.yml -o GitVersion.yml
       - name: Install GitVersion
+        if: ${{ env.SHOULD_RUN == 'true' }}
         uses: gittools/actions/gitversion/setup@v1.1.1
         with:
           versionSpec: "5.x"
       - name: Determine Version
+        if: ${{ env.SHOULD_RUN == 'true' }}
         id: gitversion
         uses: gittools/actions/gitversion/execute@v1.1.1
         with:
@@ -93,15 +108,17 @@ jobs:
           configFilePath: "GitVersion.yml"
           disableNormalization: true 
       - uses: jcdcdev/jcdcdev.Github.GenerateChangelog@main
+        if: ${{ env.SHOULD_RUN == 'true' }}
         id: changelog
         with:
           version: ${{ steps.gitversion.outputs.NuGetVersionV2 }}
           head-ref: ${{ env.TARGET }}
           github-token: ${{ secrets.JCDC_BOT_TOKEN }}
           include-version-as-heading: true
-          include-compare-link: true
+          include-compare-link: false
           include-links: true
       - name: Create PR
+        if: ${{ env.SHOULD_RUN == 'true' }}
         env:
           SOURCE: ${{ env.SOURCE }}
           TARGET: ${{ env.TARGET }}
@@ -109,13 +126,12 @@ jobs:
           BODY: |
             ### Merge ${{ env.SOURCE }} into ${{ env.TARGET }}
             ${{ steps.changelog.outputs.changelog }}
-        if: ${{ env.DRY_RUN != 'true' }}
-        uses: devops-infra/action-pull-request@v0.5.5
+          GITHUB_TOKEN: ${{ secrets.JCDC_BOT_TOKEN }}
+        uses: pyrbin/single-pr-updater@latest
         with:
-          github_token: ${{ secrets.JCDC_BOT_TOKEN}}
-          source_branch: ${{ env.SOURCE }}
-          target_branch: ${{ env.TARGET }}
+          label: 🚀 release
+          head: ${{ env.SOURCE }}
+          base: ${{ env.TARGET }}
           title: ${{ env.TITLE }}
           body: ${{ env.BODY }}
-          reviewer: ${{ github.repository_owner }}
-          assignee: ${{ github.repository_owner }}
+          draft: false
