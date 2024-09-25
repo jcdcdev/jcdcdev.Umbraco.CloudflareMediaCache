@@ -36,8 +36,10 @@ jobs:
       matrix:
           branch: ${{fromJson(needs.get-branches.outputs.branches)}}
     runs-on: ubuntu-latest
+    env:
+      DRY_RUN: ${{ github.event.inputs.dry-run || github.event_name == 'schedule' }}
     steps:
-      - name: Set Branches
+      - name: Set Variables
         run: |
           TARGET=$(echo ${{ matrix.branch }} | sed 's/dev\///')
           SOURCE=${{ matrix.branch }}
@@ -57,23 +59,25 @@ jobs:
             exit 1
           fi
 
+          echo "DRY_RUN=${{ env.DRY_RUN }}"
           echo "SOURCE=$SOURCE"
           echo "TARGET=$TARGET"
+
           echo "SOURCE=$SOURCE" >> $GITHUB_ENV
           echo "TARGET=$TARGET" >> $GITHUB_ENV
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ env.TARGET }}
+          ref: ${{ env.SOURCE }}
       - name: Determine Version
         id: determine-version
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           
-          git fetch origin $SOURCE
-          git merge $SOURCE
+          git checkout ${{ env.TARGET }}
+          git merge $SOURCE --no-ff --no-edit
       - name: Download GitVersion.yml
         shell: bash
         run: curl -sSL https://raw.githubusercontent.com/jcdcdev/jcdcdev.Umbraco.GitHub.Build/main/GitVersion.yml -o GitVersion.yml
@@ -87,23 +91,30 @@ jobs:
         with:
           useConfigFile: true
           configFilePath: "GitVersion.yml"
-      - name: Run the Action
+          disableNormalization: true 
+      - uses: jcdcdev/jcdcdev.Github.GenerateChangelog@main
+        id: changelog
+        with:
+          version: ${{ steps.gitversion.outputs.NuGetVersionV2 }}
+          head-ref: ${{ env.TARGET }}
+          github-token: ${{ secrets.JCDC_BOT_TOKEN }}
+          include-version-as-heading: true
+          include-compare-link: true
+          include-links: true
+      - name: Create PR
         env:
           SOURCE: ${{ env.SOURCE }}
           TARGET: ${{ env.TARGET }}
-          TITLE: "${{ steps.gitversion.outputs.NuGetVersionV2  }}: Merge ${{ env.SOURCE }} into ${{ env.TARGET }}"
+          TITLE: "${{ steps.gitversion.outputs.NuGetVersionV2 }}"
           BODY: |
-            <!-- Diff summary - START -->
-            <!-- Diff summary - END -->
-            <!-- Diff files - START -->
-            <!-- Diff files - END -->
-        if: ${{ github.event.inputs.dry-run == 'false' }} || ${{ github.event_name == 'schedule' }}
+            ### Merge ${{ env.SOURCE }} into ${{ env.TARGET }}
+            ${{ steps.changelog.outputs.changelog }}
+        if: ${{ env.DRY_RUN != 'true' }}
         uses: devops-infra/action-pull-request@v0.5.5
         with:
           github_token: ${{ secrets.JCDC_BOT_TOKEN}}
           source_branch: ${{ env.SOURCE }}
           target_branch: ${{ env.TARGET }}
-          get_diff: true
           title: ${{ env.TITLE }}
           body: ${{ env.BODY }}
           reviewer: ${{ github.repository_owner }}
