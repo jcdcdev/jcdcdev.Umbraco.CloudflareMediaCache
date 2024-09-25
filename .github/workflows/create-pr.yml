@@ -37,11 +37,7 @@ jobs:
           branch: ${{fromJson(needs.get-branches.outputs.branches)}}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set Env
+      - name: Set Branches
         run: |
           TARGET=$(echo ${{ matrix.branch }} | sed 's/dev\///')
           SOURCE=${{ matrix.branch }}
@@ -65,13 +61,50 @@ jobs:
           echo "TARGET=$TARGET"
           echo "SOURCE=$SOURCE" >> $GITHUB_ENV
           echo "TARGET=$TARGET" >> $GITHUB_ENV
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ env.SOURCE }}
+      - name: Determine Version
+        id: determine-version
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          
+          git checkout ${{ env.TARGET }}
+          git merge ${{ env.SOURCE }} --no-ff --no-edit
+      - name: Download GitVersion.yml
+        shell: bash
+        run: curl -sSL https://raw.githubusercontent.com/jcdcdev/jcdcdev.Umbraco.GitHub.Build/main/GitVersion.yml -o GitVersion.yml
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v1.1.1
+        with:
+          versionSpec: "5.x"
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v1.1.1
+        with:
+          useConfigFile: true
+          configFilePath: "GitVersion.yml"
       - name: Run the Action
+        env:
+          SOURCE: ${{ env.SOURCE }}
+          TARGET: ${{ env.TARGET }}
+          TITLE: "${{ steps.gitversion.outputs.NuGetVersionV2  }}: Merge ${{ env.SOURCE }} into ${{ env.TARGET }}"
+          BODY: |
+            <!-- Diff summary - START -->
+            <!-- Diff summary - END -->
+            <!-- Diff files - START -->
+            <!-- Diff files - END -->
         if: ${{ github.event.inputs.dry-run == 'false' }} || ${{ github.event_name == 'schedule' }}
         uses: devops-infra/action-pull-request@v0.5.5
         with:
           github_token: ${{ secrets.JCDC_BOT_TOKEN}}
           source_branch: ${{ env.SOURCE }}
           target_branch: ${{ env.TARGET }}
-          title: "Merge ${{ env.SOURCE }} into ${{ env.TARGET }}"
+          get_diff: true
+          title: ${{ env.TITLE }}
+          body: ${{ env.BODY }}
           reviewer: ${{ github.repository_owner }}
           assignee: ${{ github.repository_owner }}
