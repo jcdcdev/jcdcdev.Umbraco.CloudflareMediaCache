@@ -1,4 +1,5 @@
 name: 🔃 Create PRs
+# TODO: Return early if there are no changes between the source and target branches once implemented - https://github.com/orgs/community/discussions/82744
 on:
   workflow_dispatch:
     inputs:
@@ -37,7 +38,7 @@ jobs:
           branch: ${{fromJson(needs.get-branches.outputs.branches)}}
     runs-on: ubuntu-latest
     env:
-      DRY_RUN: ${{ github.event.inputs.dry-run || github.event_name == 'schedule' }}
+      DRY_RUN: ${{ contains(github.event.inputs.dry-run, 'true') }}
     steps:
       - name: Set Variables
         run: |
@@ -54,68 +55,16 @@ jobs:
             exit 1
           fi
 
-          if [ "$SOURCE" == "$TARGET" ]; then
-            echo "SOURCE is the same as TARGET"
-            exit 1
-          fi
-
-          echo "DRY_RUN=${{ env.DRY_RUN }}"
           echo "SOURCE=$SOURCE"
           echo "TARGET=$TARGET"
 
           echo "SOURCE=$SOURCE" >> $GITHUB_ENV
           echo "TARGET=$TARGET" >> $GITHUB_ENV
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Create Pull Request
+        id: create-pull-request 
+        uses: jcdcdev/jcdcdev.GitHub.CreatePullRequest@main
         with:
-          fetch-depth: 0
-          ref: ${{ env.SOURCE }}
-      - name: Determine Version
-        id: determine-version
-        run: |
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
-          
-          git checkout ${{ env.TARGET }}
-          git merge $SOURCE --no-ff --no-edit
-      - name: Download GitVersion.yml
-        shell: bash
-        run: curl -sSL https://raw.githubusercontent.com/jcdcdev/jcdcdev.Umbraco.GitHub.Build/main/GitVersion.yml -o GitVersion.yml
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v1.1.1
-        with:
-          versionSpec: "5.x"
-      - name: Determine Version
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v1.1.1
-        with:
-          useConfigFile: true
-          configFilePath: "GitVersion.yml"
-          disableNormalization: true 
-      - uses: jcdcdev/jcdcdev.Github.GenerateChangelog@main
-        id: changelog
-        with:
-          version: ${{ steps.gitversion.outputs.NuGetVersionV2 }}
-          head-ref: ${{ env.TARGET }}
+          source-branch: ${{ env.SOURCE }}
+          target-branch: ${{ env.TARGET }}
+          dry-run: ${{ env.DRY_RUN }}
           github-token: ${{ secrets.JCDC_BOT_TOKEN }}
-          include-version-as-heading: true
-          include-compare-link: true
-          include-links: true
-      - name: Create PR
-        env:
-          SOURCE: ${{ env.SOURCE }}
-          TARGET: ${{ env.TARGET }}
-          TITLE: "${{ steps.gitversion.outputs.NuGetVersionV2 }}"
-          BODY: |
-            ### Merge ${{ env.SOURCE }} into ${{ env.TARGET }}
-            ${{ steps.changelog.outputs.changelog }}
-        if: ${{ env.DRY_RUN != 'true' }}
-        uses: devops-infra/action-pull-request@v0.5.5
-        with:
-          github_token: ${{ secrets.JCDC_BOT_TOKEN}}
-          source_branch: ${{ env.SOURCE }}
-          target_branch: ${{ env.TARGET }}
-          title: ${{ env.TITLE }}
-          body: ${{ env.BODY }}
-          reviewer: ${{ github.repository_owner }}
-          assignee: ${{ github.repository_owner }}
