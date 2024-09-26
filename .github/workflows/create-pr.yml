@@ -1,10 +1,9 @@
-name: 🔃 Create PRs
-# TODO: Return early if there are no changes between the source and target branches once implemented - https://github.com/orgs/community/discussions/82744
+name: 📤 Create PRs
 on:
   workflow_dispatch:
     inputs:
       dry-run:
-        description: 'Run the workflow without creating PRs'
+        description: "Dry run: Run the workflow without creating a Pull Request"
         required: false
         default: false
         type: boolean
