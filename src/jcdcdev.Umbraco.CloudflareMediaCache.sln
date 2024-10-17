@@ -43,5 +43,5 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Github", "Github", "{5830A8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jcdcdev.Umbraco.CloudflareMediaCache", "jcdcdev.Umbraco.CloudflareMediaCache\jcdcdev.Umbraco.CloudflareMediaCache.csproj", "{2060F159-0A7B-4484-A6C2-1995A3EF19B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSite.14", "TestSite.14\TestSite.14.csproj", "{AB1163B9-FE52-4600-B194-4C9EECD8C2B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSite", "TestSite\TestSite.csproj", "{AB1163B9-FE52-4600-B194-4C9EECD8C2B3}"
 EndProject
