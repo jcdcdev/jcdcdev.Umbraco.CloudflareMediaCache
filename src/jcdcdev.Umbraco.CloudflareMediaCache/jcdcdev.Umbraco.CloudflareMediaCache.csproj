@@ -25,8 +25,8 @@
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="SixLabors.ImageSharp.Web" Version="[3.1.2,4.0.0)" />
-        <PackageReference Include="Umbraco.Cms.Core" Version="15.0.0-rc3" />
-        <PackageReference Include="jcdcdev.Umbraco.Core" Version="15.0.0-alpha0007" />
+        <PackageReference Include="Umbraco.Cms.Core" Version="[15.0.0,16.0.0)" />
+        <PackageReference Include="jcdcdev.Umbraco.Core" Version="[15.0.0,16.0.0)" />
         <PackageReference Include="CloudFlare.Client" Version="6.3.0" />
     </ItemGroup>
 
