@@ -14,13 +14,14 @@ jobs:
               id: build
               uses: jcdcdev/jcdcdev.Umbraco.GitHub.Build@main
               with:
-                  project-name: jcdcdev.Umbraco.CloudflareMediaCache
-                  project-path: src/jcdcdev.Umbraco.CloudflareMediaCache/jcdcdev.Umbraco.CloudflareMediaCache.csproj
-                  umbraco-version: 14
+                project-name: jcdcdev.Umbraco.CloudflareMediaCache
+                project-path: src/jcdcdev.Umbraco.CloudflareMediaCache/jcdcdev.Umbraco.CloudflareMediaCache.csproj
+                umbraco-version: 15
+                dotnet-version: "9"
             - name: Release
               uses: jcdcdev/jcdcdev.Umbraco.GitHub.Release@main
               with:
-                  artifact-name: ${{ steps.build.outputs.artifact-name }}
-                  version: ${{ steps.build.outputs.version }}
-                  nuget-api-key: ${{ secrets.NUGET_API_KEY }}
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                artifact-name: ${{ steps.build.outputs.artifact-name }}
+                version: ${{ steps.build.outputs.version }}
+                nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+                github-token: ${{ secrets.GITHUB_TOKEN }}
