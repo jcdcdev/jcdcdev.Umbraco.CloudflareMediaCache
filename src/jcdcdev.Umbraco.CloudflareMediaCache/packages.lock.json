@@ -4,9 +4,9 @@
     "net8.0": {
       "CloudFlare.Client": {
         "type": "Direct",
-        "requested": "[6.3.0, )",
-        "resolved": "6.3.0",
-        "contentHash": "VKurMYdBQ/jUqxfUvPDHvLR/84qH5oTH78DjTysFYTl61plmCsM9SjG/w9kzn8A/j3HdxHJbrGWDpEHiFhuUIw==",
+        "requested": "[8.0.0, )",
+        "resolved": "8.0.0",
+        "contentHash": "i9u4KE4avopWBYgS2RoOMf82lVDB2e4wp62eACwQGDegEl/QxBrz73JHnW3cVCwB7l00dSKCLFAzO2fnoCMTog==",
         "dependencies": {
           "Microsoft.AspNet.WebApi.Client": "6.0.0",
           "Microsoft.CSharp": "4.7.0",
@@ -15,7 +15,7 @@
       },
       "jcdcdev.Umbraco.Core": {
         "type": "Direct",
-        "requested": "[13.0.1, )",
+        "requested": "[13.0.1, 14.0.0)",
         "resolved": "13.0.1",
         "contentHash": "yNWhu3EEiqqSXE2b7xy730pVylcsqAaJxaH64HuGVMcZpUq7FfiDVF2mjbB97sx6XIcFpLq8a9btpzZN83mq6w==",
         "dependencies": {
@@ -24,7 +24,7 @@
       },
       "SixLabors.ImageSharp.Web": {
         "type": "Direct",
-        "requested": "[3.0.0, )",
+        "requested": "[3.0.0, 4.0.0)",
         "resolved": "3.0.0",
         "contentHash": "zbxApLHhNE6TLKlQNnUm/lnFwuQ1vpMGGgI2xqc3j6wuDaMuKwl0G6dfFnSXHC9b0ziXCfOtyJdCASMQYpVdFg==",
         "dependencies": {
