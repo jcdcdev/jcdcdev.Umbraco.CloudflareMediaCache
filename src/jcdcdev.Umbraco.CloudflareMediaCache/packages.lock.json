@@ -4,9 +4,9 @@
     "net9.0": {
       "CloudFlare.Client": {
         "type": "Direct",
-        "requested": "[6.3.0, )",
-        "resolved": "6.3.0",
-        "contentHash": "VKurMYdBQ/jUqxfUvPDHvLR/84qH5oTH78DjTysFYTl61plmCsM9SjG/w9kzn8A/j3HdxHJbrGWDpEHiFhuUIw==",
+        "requested": "[8.0.0, )",
+        "resolved": "8.0.0",
+        "contentHash": "i9u4KE4avopWBYgS2RoOMf82lVDB2e4wp62eACwQGDegEl/QxBrz73JHnW3cVCwB7l00dSKCLFAzO2fnoCMTog==",
         "dependencies": {
           "Microsoft.AspNet.WebApi.Client": "6.0.0",
           "Microsoft.CSharp": "4.7.0",
@@ -24,12 +24,12 @@
       },
       "SixLabors.ImageSharp.Web": {
         "type": "Direct",
-        "requested": "[3.1.2, 4.0.0)",
-        "resolved": "3.1.2",
-        "contentHash": "4JSH9pzOu0g0PaehMQzpm43ffQmaWcGdmmPAOn+6ieG6vlvmHefGM3imBcMelLRDNwxZQyiOmO+leMukeISmiQ==",
+        "requested": "[3.1.4, )",
+        "resolved": "3.1.4",
+        "contentHash": "wuH8nGNUNx6s2T8+YFpZg25yTEcmN2Zof24dLWO+TADEai0rKJrob7W/ai/l07095a381PxzbdvYUslmAEdonw==",
         "dependencies": {
-          "Microsoft.IO.RecyclableMemoryStream": "2.3.2",
-          "SixLabors.ImageSharp": "3.1.4"
+          "Microsoft.IO.RecyclableMemoryStream": "3.0.1",
+          "SixLabors.ImageSharp": "3.1.7"
         }
       },
       "Umbraco.Cms.Core": {
@@ -708,8 +708,8 @@
       },
       "Microsoft.IO.RecyclableMemoryStream": {
         "type": "Transitive",
-        "resolved": "2.3.2",
-        "contentHash": "Oh1qXXFdJFcHozvb4H6XYLf2W0meZFuG0A+TfapFPj9z5fd4vxiARGEhAaLj/6XWQaMYIv4SH/9Q6H78Hw0E2Q=="
+        "resolved": "3.0.1",
+        "contentHash": "s/s20YTVY9r9TPfTrN5g8zPF1YhwxyqO6PxUkrYTGI2B+OGPe9AdajWZrLhFqXIvqIW23fnUE4+ztrUWNU1+9g=="
       },
       "Microsoft.NET.StringTools": {
         "type": "Transitive",
@@ -1109,8 +1109,8 @@
       },
       "SixLabors.ImageSharp": {
         "type": "Transitive",
-        "resolved": "3.1.4",
-        "contentHash": "lFIdxgGDA5iYkUMRFOze7BGLcdpoLFbR+a20kc1W7NepvzU7ejtxtWOg9RvgG7kb9tBoJ3ONYOK6kLil/dgF1w=="
+        "resolved": "3.1.7",
+        "contentHash": "9fIOOAsyLFid6qKypM2Iy0Z3Q9yoanV8VoYAHtI2sYGMNKzhvRTjgFDHonIiVe+ANtxIxM6SuqUzj0r91nItpA=="
       },
       "System.AppContext": {
         "type": "Transitive",

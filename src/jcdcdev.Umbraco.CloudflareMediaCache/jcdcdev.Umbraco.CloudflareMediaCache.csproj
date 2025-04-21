@@ -24,10 +24,10 @@
 
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="SixLabors.ImageSharp.Web" Version="[3.1.2,4.0.0)" />
+        <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.1.4" />
         <PackageReference Include="Umbraco.Cms.Core" Version="[15.0.0,16.0.0)" />
         <PackageReference Include="jcdcdev.Umbraco.Core" Version="[15.0.0,16.0.0)" />
-        <PackageReference Include="CloudFlare.Client" Version="6.3.0" />
+        <PackageReference Include="CloudFlare.Client" Version="8.0.0" />
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
