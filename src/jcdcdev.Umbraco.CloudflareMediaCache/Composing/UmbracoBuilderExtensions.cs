@@ -13,6 +13,7 @@ using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Infrastructure.Manifest;
 using Umbraco.Extensions;
 
 namespace jcdcdev.Umbraco.CloudflareMediaCache.Composing;
@@ -41,6 +42,7 @@ public static class UmbracoBuilderExtensions
         builder.AddNotificationAsyncHandler<MediaSavedNotification, MediaSavedNotificationHandler>();
 
         builder.Services.Configure<ImageSharpMiddlewareOptions>(options => { options.OnPrepareResponseAsync = OnPrepareResponseAsync; });
+        builder.Services.AddSingleton<IPackageManifestReader, PackageManifestReader>();
     }
 
     private static Task OnPrepareResponseAsync(HttpContext context)
