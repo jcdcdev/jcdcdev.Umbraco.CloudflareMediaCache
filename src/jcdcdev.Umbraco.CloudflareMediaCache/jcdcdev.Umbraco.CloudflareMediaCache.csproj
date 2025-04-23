@@ -26,9 +26,9 @@
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>
         <PackageReference Include="Umbraco.Cms.Core" Version="[13.0.0,14.0.0)"/>
         <PackageReference Include="Umbraco.Cms.Infrastructure" Version="[13.0.0,14.0.0)"/>
-        <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.0.0"/>
-        <PackageReference Include="jcdcdev.Umbraco.Core" Version="13.0.1"/>
-        <PackageReference Include="CloudFlare.Client" Version="6.3.0"/>
+        <PackageReference Include="SixLabors.ImageSharp.Web" Version="[3.0.0,4.0.0)"/>
+        <PackageReference Include="jcdcdev.Umbraco.Core" Version="[13.0.1,14.0.0)"/>
+        <PackageReference Include="CloudFlare.Client" Version="8.0.0"/>
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
