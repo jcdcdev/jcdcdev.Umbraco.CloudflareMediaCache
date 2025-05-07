@@ -1,23 +1,40 @@
-# jcdcdev.Umbraco.CloudflareMediaCache
+<!doctype html>
+<html lang="en" class="h-100">
 
-[![Documentation](https://img.shields.io/badge/Docs-Quickstart-394933?style=flat&logo=github)](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache/tree/main?tab=readme-ov-file#quick-start)
-[![Umbraco Marketplace](https://img.shields.io/badge/Umbraco-Marketplace-%233544B1?style=flat&logo=umbraco)](https://marketplace.umbraco.com/package/jcdcdev.umbraco.cloudflaremediacache)
-[![GitHub License](https://img.shields.io/github/license/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache?color=8AB803&label=License&logo=github)](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache/blob/main/LICENSE)
-[![NuGet Downloads](https://img.shields.io/nuget/dt/jcdcdev.Umbraco.CloudflareMediaCache?color=cc9900&label=Downloads&logo=nuget)](https://www.nuget.org/packages/jcdcdev.Umbraco.CloudflareMediaCache/)
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>404</title>
+</head>
 
-## Features
+<body class="h-100">
+    <div class="d-flex align-items-center justify-content-center h-100">
+        <div class="">
+            <h1>404 Not Found</h1>
+            <p> Sorry, the page you are looking for could not be found.</p>
+        </div>
+    </div>
 
-- Automatically purge Cloudflare cache when media saved
-    - Purge by prefix (Cloudflare Pro & Enterprise)
-    - Purge all (All Cloudflare plans)
-- Adds cache headers when serving media
-    - Respects image cropper
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" type="baa69ea7636d5982b83e6b33-text/javascript"></script>
+    <script type="baa69ea7636d5982b83e6b33-text/javascript">
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-## Contributing
+        if (darkModeMediaQuery.matches) {
+            document.documentElement.setAttribute('data-bs-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-bs-theme', 'light');
+        }
 
-Contributions to this package are most welcome! Please read the [Contributing Guidelines](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache/blob/main/.github/CONTRIBUTING.md).
+        darkModeMediaQuery.addEventListener('change', (event) => {
+            if (event.matches) {
+                document.documentElement.setAttribute('data-bs-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-bs-theme', 'light');
+            }
+        });
+    </script>
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="baa69ea7636d5982b83e6b33-|49" defer></script></body>
 
-## Acknowledgments (thanks!)
-
-- LottePitcher - [opinionated-package-starter](https://github.com/LottePitcher/opinionated-package-starter)
-- jcdcdev - [jcdcdev.Umbraco.PackageTemplate](https://github.com/jcdcdev/jcdcdev.Umbraco.PackageTemplate)
+</html>
