@@ -1,40 +1,74 @@
-<!doctype html>
-<html lang="en" class="h-100">
+# jcdcdev.Umbraco.CloudflareMediaCache
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>404</title>
-</head>
+[![Documentation](https://img.shields.io/badge/Docs-Quickstart-394933?style=flat&logo=github)](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache#quick-start)
+[![Umbraco Marketplace](https://img.shields.io/badge/Umbraco-Marketplace-%233544B1?style=flat&logo=umbraco)](https://marketplace.umbraco.com/package/jcdcdev.Umbraco.CloudflareMediaCache)
+[![License](https://img.shields.io/github/license/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache?color=8AB803&label=License&logo=github)](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache?tab=MIT-1-ov-file)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/jcdcdev.Umbraco.CloudflareMediaCache?color=cc9900&label=Downloads&logo=nuget)](https://www.nuget.org/packages/jcdcdev.Umbraco.CloudflareMediaCache)
+[![Project Website](https://img.shields.io/badge/Project%20Website-jcdc.dev-jcdcdev?style=flat&color=3c4834&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0id2hpdGUiIGNsYXNzPSJiaSBiaS1wYy1kaXNwbGF5IiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGQ9Ik04IDFhMSAxIDAgMCAxIDEtMWg2YTEgMSAwIDAgMSAxIDF2MTRhMSAxIDAgMCAxLTEgMUg5YTEgMSAwIDAgMS0xLTF6bTEgMTMuNWEuNS41IDAgMSAwIDEgMCAuNS41IDAgMCAwLTEgMG0yIDBhLjUuNSAwIDEgMCAxIDAgLjUuNSAwIDAgMC0xIDBNOS41IDFhLjUuNSAwIDAgMCAwIDFoNWEuNS41IDAgMCAwIDAtMXpNOSAzLjVhLjUuNSAwIDAgMCAuNS41aDVhLjUuNSAwIDAgMCAwLTFoLTVhLjUuNSAwIDAgMC0uNS41TTEuNSAyQTEuNSAxLjUgMCAwIDAgMCAzLjV2N0ExLjUgMS41IDAgMCAwIDEuNSAxMkg2djJoLS41YS41LjUgMCAwIDAgMCAxSDd2LTRIMS41YS41LjUgMCAwIDEtLjUtLjV2LTdhLjUuNSAwIDAgMSAuNS0uNUg3VjJ6Ii8+Cjwvc3ZnPg==)](https://jcdc.dev/umbraco-packages/cloudflare-media-cache)
 
-<body class="h-100">
-    <div class="d-flex align-items-center justify-content-center h-100">
-        <div class="">
-            <h1>404 Not Found</h1>
-            <p> Sorry, the page you are looking for could not be found.</p>
-        </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" type="baa69ea7636d5982b83e6b33-text/javascript"></script>
-    <script type="baa69ea7636d5982b83e6b33-text/javascript">
-        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+- Automatically purge Cloudflare cache when media saved
+    - Purge by prefix (Cloudflare Pro & Enterprise)
+    - Purge all (All Cloudflare plans)
+- Adds cache headers when serving media
+    - Respects image cropper
 
-        if (darkModeMediaQuery.matches) {
-            document.documentElement.setAttribute('data-bs-theme', 'dark');
-        } else {
-            document.documentElement.setAttribute('data-bs-theme', 'light');
-        }
+## Quick Start
 
-        darkModeMediaQuery.addEventListener('change', (event) => {
-            if (event.matches) {
-                document.documentElement.setAttribute('data-bs-theme', 'dark');
-            } else {
-                document.documentElement.setAttribute('data-bs-theme', 'light');
-            }
-        });
-    </script>
-<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="baa69ea7636d5982b83e6b33-|49" defer></script></body>
+### Install Package
 
-</html>
+```csharp
+dotnet add package jcdcdev.Umbraco.CloudflareMediaCache
+```
+
+### Get Cloudflare Zone ID & API Key
+
+You will need a Cloudflare Zone ID and API Key to use this package.
+
+- Zone ID: [Find your Zone ID](https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/)
+- API Key: [Create an API Key](https://developers.cloudflare.com/api/tokens/create)
+
+Note: The API Key should have the following permission:
+- Zone.Cache Purge
+
+
+## Configuration
+
+Add the following section to your `appsettings.json`:
+
+```json
+{
+  "Cloudflare": {
+    "Media": {
+      "Cache": {
+        "ZoneId": "ZONE_ID",
+        "ApiToken": "API_TOKEN",
+        "Enabled": true,
+        "Mode": "All",
+        "MaxAge": 2592000
+      }
+    }
+  }
+}
+```
+### Options
+
+| Option    | Description                              |
+| --------- | ---------------------------------------- |
+| `ZoneId`  | The Cloudflare Zone ID                   |
+| `Key`     | The Cloudflare API Key                   |
+| `Enabled` | Whether to enable functionality          |
+| `Mode`    | The cache mode (All, Prefix)             |
+| `MaxAge`  | The max-age for cache headers  (seconds) |
+
+## Contributing
+
+Contributions to this package are most welcome! Please visit the [Contributing](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache/contribute) page.
+
+## Acknowledgements (Thanks)
+
+- LottePitcher - [opinionated-package-starter](https://github.com/LottePitcher/opinionated-package-starter)
+- jcdcdev - [jcdcdev.Umbraco.PackageTemplate](#https://github.com/jcdcdev/jcdcdev.Umbraco.PackageTemplate)
+
+
+
