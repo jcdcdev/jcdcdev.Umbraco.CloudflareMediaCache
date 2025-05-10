@@ -23,11 +23,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.1.4" />
-        <PackageReference Include="Umbraco.Cms.Core" Version="[15.0.0,16.0.0)" />
-        <PackageReference Include="jcdcdev.Umbraco.Core" Version="[15.0.0,16.0.0)" />
-        <PackageReference Include="CloudFlare.Client" Version="8.0.0" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <!--        <PackageReference Include="Umbraco.Cms.Core" Version="[16.0.0,17.0.0)" />-->
+        <!--        <PackageReference Include="jcdcdev.Umbraco.Core" Version="[16.0.0,17.0.0)" />-->
+        <!--        <PackageReference Include="Umbraco.Cms.Imaging.ImageSharp" Version="[16.0.0,17.0.0)" />-->
+        <PackageReference Include="Umbraco.Cms.Core" Version="16.0.0-rc"/>
+        <PackageReference Include="Umbraco.Cms.Imaging.ImageSharp" Version="16.0.0-rc"/>
+        <PackageReference Include="jcdcdev.Umbraco.Core" Version="16.0.0-alpha0001"/>
+        <PackageReference Include="CloudFlare.Client" Version="8.0.0"/>
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -41,7 +44,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\..\docs\icon.png" Pack="true" PackagePath="images\icon.png" />
-        <None Include="..\..\docs\README_nuget.md" Pack="true" PackagePath="\" />
+        <None Include="..\..\docs\icon.png" Pack="true" PackagePath="images\icon.png"/>
+        <None Include="..\..\docs\README_nuget.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 </Project>
