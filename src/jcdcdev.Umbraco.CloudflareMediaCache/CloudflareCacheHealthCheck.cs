@@ -13,7 +13,7 @@ public class CloudflareCacheHealthCheck(IOptions<CloudflareCacheOptions> options
     private const string HealthCheckName = "Cloudflare Cache Health Check";
     private readonly CloudflareCacheOptions _options = options.Value;
 
-    public override async Task<IEnumerable<HealthCheckStatus>> GetStatus()
+    public override async Task<IEnumerable<HealthCheckStatus>> GetStatusAsync()
     {
         if (!_options.Enabled)
         {
