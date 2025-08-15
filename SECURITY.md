@@ -11,6 +11,7 @@ The following table outlines the versions of the project that are currently supp
 | ---------------------------------------------------------------------------------- | --------------- | -------------------- | ----------- |
 | [13.x](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache/tree/v13) | 13 | 2025-12-14 | 2026-12-14 |
 | [15.x](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache/tree/v15) | 15 | 2025-08-14 | 2025-11-14 |
+| [16.x](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache/tree/v16) | 16 | 2026-03-12 | 2026-06-12 |
 ## Unsupported Versions
 
 | Package Version                                                               |  Umbraco Version  | End of Life |
