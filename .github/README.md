@@ -25,7 +25,7 @@ dotnet add package jcdcdev.Umbraco.CloudflareMediaCache
 You will need a Cloudflare Zone ID and API Key to use this package.
 
 - Zone ID: [Find your Zone ID](https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/)
-- API Key: [Create an API Key](https://developers.cloudflare.com/api/tokens/create)
+- API Key: [Create an API Key](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/)
 
 Note: The API Key should have the following permission:
 - Zone.Cache Purge
