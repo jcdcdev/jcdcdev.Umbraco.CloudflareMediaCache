@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <LangVersion>12</LangVersion>
         <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
         <Nullable>enable</Nullable>
@@ -24,9 +24,9 @@
 
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>
-        <PackageReference Include="Umbraco.Cms.Core" Version="[16.0.0,17.0.0)"/>
-        <PackageReference Include="jcdcdev.Umbraco.Core" Version="[16.0.0,17.0.0)"/>
-        <PackageReference Include="Umbraco.Cms.Imaging.ImageSharp" Version="[16.0.0,17.0.0)"/>
+        <PackageReference Include="Umbraco.Cms.Core" Version="17.0.0-rc1" />
+        <PackageReference Include="jcdcdev.Umbraco.Core" Version="17.0.0-alpha0003" />
+        <PackageReference Include="Umbraco.Cms.Imaging.ImageSharp" Version="17.0.0-rc1"/>
         <PackageReference Include="CloudFlare.Client" Version="8.0.0"/>
     </ItemGroup>
 

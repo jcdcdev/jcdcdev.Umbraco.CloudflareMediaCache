@@ -9,7 +9,7 @@ jobs:
             - name: Build
               uses: jcdcdev/jcdcdev.Umbraco.Github.Build@main
               with:
-                project-name: jcdcdev.Umbraco.CloudflareMediaCache
-                project-path: src/jcdcdev.Umbraco.CloudflareMediaCache/jcdcdev.Umbraco.CloudflareMediaCache.csproj
-                umbraco-version: 16
-                dotnet-version: "9"
+                  project-name: jcdcdev.Umbraco.CloudflareMediaCache
+                  project-path: src/jcdcdev.Umbraco.CloudflareMediaCache/jcdcdev.Umbraco.CloudflareMediaCache.csproj
+                  umbraco-version: 17
+                  dotnet-version: "10"
