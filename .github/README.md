@@ -12,9 +12,6 @@
 - Adds cache headers when serving media
     - Respects image cropper
 
-> [!NOTE]
-> Version 17 is not released yet.
-
 ## Quick Start
 
 ### Install Package
