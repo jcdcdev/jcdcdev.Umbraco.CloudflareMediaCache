@@ -7,9 +7,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Build
-              uses: jcdcdev/jcdcdev.Umbraco.Github.Build@main
+              uses: jcdcdev/jcdcdev.Umbraco.GitHub.Build@v0
               with:
-                project-name: jcdcdev.Umbraco.CloudflareMediaCache
-                project-path: src/jcdcdev.Umbraco.CloudflareMediaCache/jcdcdev.Umbraco.CloudflareMediaCache.csproj
-                umbraco-version: 15
-                dotnet-version: "9"
+                  project-name: jcdcdev.Umbraco.CloudflareMediaCache
+                  project-path: src/jcdcdev.Umbraco.CloudflareMediaCache/jcdcdev.Umbraco.CloudflareMediaCache.csproj
+                  umbraco-version: 15
+                  dotnet-version: "9"
