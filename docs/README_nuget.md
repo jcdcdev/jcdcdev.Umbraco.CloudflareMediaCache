@@ -13,6 +13,7 @@
 - Adds cache headers when serving media
     - Respects image cropper
 
+
 ## Quick Start
 
 ### Install Package
