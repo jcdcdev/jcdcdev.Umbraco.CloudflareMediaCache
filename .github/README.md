@@ -17,13 +17,15 @@
 
 > Please review the [security policy](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache?tab=security-ov-file#supported-versions) for more information.
 
-## Quick Start
+## Installation
 
 ### Install Package
 
 ```csharp
 dotnet add package jcdcdev.Umbraco.CloudflareMediaCache
 ```
+
+## Quick Start
 
 ### Get Cloudflare Zone ID & API Key
 
