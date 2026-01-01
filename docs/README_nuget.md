@@ -13,13 +13,15 @@
 - Adds cache headers when serving media
     - Respects image cropper
 
-## Quick Start
+## Installation
 
 ### Install Package
 
 ```csharp
 dotnet add package jcdcdev.Umbraco.CloudflareMediaCache
 ```
+
+## Quick Start
 
 ### Get Cloudflare Zone ID & API Key
 
