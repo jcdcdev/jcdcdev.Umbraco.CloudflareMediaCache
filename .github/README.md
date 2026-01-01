@@ -12,7 +12,6 @@
 - Adds cache headers when serving media
     - Respects image cropper
 
-
 ## Quick Start
 
 ### Install Package
@@ -60,7 +59,6 @@ Add the following section to your `appsettings.json`:
 | `Enabled` | Whether to enable functionality          |
 | `Mode`    | The cache mode (All, Prefix)             |
 | `MaxAge`  | The max-age for cache headers  (seconds) |
-
 
 ## Contributing
 
