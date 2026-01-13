@@ -17,7 +17,7 @@
 
 ### Install Package
 
-```csharp
+```powershell
 dotnet add package jcdcdev.Umbraco.CloudflareMediaCache
 ```
 
