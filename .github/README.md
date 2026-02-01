@@ -1,5 +1,6 @@
-# jcdcdev.Umbraco.CloudflareMediaCache
+# Cloudflare Media Cache
 
+[![Documentation](https://img.shields.io/badge/Documentation-123?color=394933&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iY3VycmVudENvbG9yIiBjb2xvcj0id2hpdGUiIGNsYXNzPSJiaSBiaS1ib29rIiB2aWV3Qm94PSIwIDAgMTYgMTYiPgogIDxwYXRoIGQ9Ik0xIDIuODI4Yy44ODUtLjM3IDIuMTU0LS43NjkgMy4zODgtLjg5MyAxLjMzLS4xMzQgMi40NTguMDYzIDMuMTEyLjc1MnY5Ljc0NmMtLjkzNS0uNTMtMi4xMi0uNjAzLTMuMjEzLS40OTMtMS4xOC4xMi0yLjM3LjQ2MS0zLjI4Ny44MTF6bTcuNS0uMTQxYy42NTQtLjY4OSAxLjc4Mi0uODg2IDMuMTEyLS43NTIgMS4yMzQuMTI0IDIuNTAzLjUyMyAzLjM4OC44OTN2OS45MjNjLS45MTgtLjM1LTIuMTA3LS42OTItMy4yODctLjgxLTEuMDk0LS4xMTEtMi4yNzgtLjAzOS0zLjIxMy40OTJ6TTggMS43ODNDNy4wMTUuOTM2IDUuNTg3LjgxIDQuMjg3Ljk0Yy0xLjUxNC4xNTMtMy4wNDIuNjcyLTMuOTk0IDEuMTA1QS41LjUgMCAwIDAgMCAyLjV2MTFhLjUuNSAwIDAgMCAuNzA3LjQ1NWMuODgyLS40IDIuMzAzLS44ODEgMy42OC0xLjAyIDEuNDA5LS4xNDIgMi41OS4wODcgMy4yMjMuODc3YS41LjUgMCAwIDAgLjc4IDBjLjYzMy0uNzkgMS44MTQtMS4wMTkgMy4yMjItLjg3NyAxLjM3OC4xMzkgMi44LjYyIDMuNjgxIDEuMDJBLjUuNSAwIDAgMCAxNiAxMy41di0xMWEuNS41IDAgMCAwLS4yOTMtLjQ1NWMtLjk1Mi0uNDMzLTIuNDgtLjk1Mi0zLjk5NC0xLjEwNUMxMC40MTMuODA5IDguOTg1LjkzNiA4IDEuNzgzIi8+Cjwvc3ZnPg==)](https://docs.jcdc.dev/jcdcdev-umbraco-cloudflaremediacache/latest)
 [![Umbraco Marketplace](https://img.shields.io/badge/Umbraco%20Marketplace-%23f5c1bc?logo=umbraco&logoColor=162335)](https://marketplace.umbraco.com/package/jcdcdev.Umbraco.CloudflareMediaCache)
 [![GitHub](https://img.shields.io/badge/GitHub-1?logo=github&color=232925)](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/jcdcdev.Umbraco.CloudflareMediaCache?labelColor=4536d3&color=4536d3&label=NuGet&logo=nuget)](https://www.nuget.org/packages/jcdcdev.Umbraco.CloudflareMediaCache)
@@ -24,19 +25,6 @@
 ```powershell
 dotnet add package jcdcdev.Umbraco.CloudflareMediaCache
 ```
-
-## Quick Start
-
-### Get Cloudflare Zone ID & API Key
-
-You will need a Cloudflare Zone ID and API Key to use this package.
-
-- Zone ID: [Find your Zone ID](https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/)
-- API Key: [Create an API Key](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/)
-
-Note: The API Key should have the following permission:
-- Zone.Cache Purge
-
 
 ## Configuration
 
@@ -67,11 +55,21 @@ Add the following section to your `appsettings.json`:
 | `Mode`    | The cache mode (All, Prefix)             |
 | `MaxAge`  | The max-age for cache headers  (seconds) |
 
+## Security
+
+> [!NOTE]
+> This project takes security and support seriously.
+> Please visit the [Security](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache?tab=security-ov-file) page for more information.
+
+
+
 ## Contributing
 
 Contributions to this package are most welcome! Please visit the [Contributing](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache/contribute) page.
 
-## Acknowledgements (Thanks)
+## Acknowledgements
+
+Thank you to the following projects and individuals for their contributions. High five, you rock! 🤘🦄
 
 - LottePitcher - [opinionated-package-starter](https://github.com/LottePitcher/opinionated-package-starter)
 - jcdcdev - [jcdcdev.Umbraco.PackageTemplate](#https://github.com/jcdcdev/jcdcdev.Umbraco.PackageTemplate)
