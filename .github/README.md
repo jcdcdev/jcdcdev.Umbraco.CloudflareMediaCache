@@ -13,6 +13,11 @@
 - Adds cache headers when serving media
     - Respects image cropper
 
+> [!IMPORTANT]
+> Version 16 will only receive security updates and no new features.
+
+> Please review the [security policy](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache?tab=security-ov-file#supported-versions) for more information.
+
 ## Installation
 
 ### Install Package
