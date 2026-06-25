@@ -13,47 +13,10 @@
 - Adds cache headers when serving media
     - Respects image cropper
 
-> [!IMPORTANT]
-> Version 16 will only receive security updates and no new features.
+> [!WARNING]
+> Version 16 is no longer supported and is End of Life (EOL).
 
 > Please review the [security policy](https://github.com/jcdcdev/jcdcdev.Umbraco.CloudflareMediaCache?tab=security-ov-file#supported-versions) for more information.
-
-## Installation
-
-### Install Package
-
-```powershell
-dotnet add package jcdcdev.Umbraco.CloudflareMediaCache
-```
-
-## Configuration
-
-Add the following section to your `appsettings.json`:
-
-```json
-{
-  "Cloudflare": {
-    "Media": {
-      "Cache": {
-        "ZoneId": "ZONE_ID",
-        "ApiToken": "API_TOKEN",
-        "Enabled": true,
-        "Mode": "All",
-        "MaxAge": 2592000
-      }
-    }
-  }
-}
-```
-### Options
-
-| Option    | Description                              |
-| --------- | ---------------------------------------- |
-| `ZoneId`  | The Cloudflare Zone ID                   |
-| `Key`     | The Cloudflare API Key                   |
-| `Enabled` | Whether to enable functionality          |
-| `Mode`    | The cache mode (All, Prefix)             |
-| `MaxAge`  | The max-age for cache headers  (seconds) |
 
 ## Security
 
